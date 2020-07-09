@@ -4,8 +4,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
 import ToDoPage from './pages/ToDoPage/ToDoPage';
 import FormPage from './pages/FormPage/FormPage';
+import routes from './routes';
 
-// import routes from './routes';
+
 
 const App = () => {
   return (
@@ -13,8 +14,8 @@ const App = () => {
       <Header />
 
       <Switch>
-        <Route exact path="/" component={ToDoPage} />
-        <Route path="/todo" component={FormPage} />
+        <Route exact path={routes.TODO_PAGE} component={ToDoPage} />
+        <Route path={routes.FORM_PAGE} component={FormPage} />
       </Switch>
     </BrowserRouter>
   );

@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const ToDoPage = ({listTodo}) => {
+const ToDoPage = ({ listTodo }) => {
+  console.log(listTodo);
+
   return (
     <main>
-      {/* <ul>
-                {list.map(item => (
-                    <li>{item.text}</li>
-                ))}
-            </ul> */}
-      Todo Page
+      <h1>Todo Page</h1>
+      <ul>
+        {listTodo.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
     </main>
   );
 };
 
-const mapStateToProps =(state)=> {
-    return {listTodo: state.todo.todo}
-}
+const mapStateToProps = state => {
+  return { listTodo: state.todo.todo };
+};
 
 export default connect(mapStateToProps)(ToDoPage);
