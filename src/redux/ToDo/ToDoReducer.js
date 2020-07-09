@@ -1,15 +1,16 @@
 import {combineReducers} from "redux"
 import ToDoTypes   from "./ToDoTypes"
 
-const obj = {
-    id: 1,
-    text: "to do ZERO"
-}
 
-const ToDoReducer = (state=[obj], action)=>{
+
+const ToDoReducer = (state=[], action)=>{
     switch (action.type) {
         case ToDoTypes.ADD_ITEM:
             return [...state, action.payload.todo];
+
+        case ToDoTypes.DELETE_ITEM:
+                return state.filter(item => item.id !== action.payload.id);
+
         default:
             return state;
     }

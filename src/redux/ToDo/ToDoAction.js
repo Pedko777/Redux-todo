@@ -1,14 +1,24 @@
 import ToDoTypes from './ToDoTypes';
 
-const addItem = (text) => {
+const addItem = text => {
   return {
     type: ToDoTypes.ADD_ITEM,
     payload: {
       todo: {
-          id: Date.now(),
-          text,
+        id: Date.now(),
+        text,
       },
     },
   };
 };
-export default {addItem};
+
+const deleteItem = idItemDelete => {
+  return {
+    type: ToDoTypes.DELETE_ITEM,
+    payload: {
+      id: idItemDelete,
+    },
+  };
+};
+
+export default { addItem, deleteItem };
