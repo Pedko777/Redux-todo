@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ToDoAction from '../../redux/ToDo/ToDoAction';
 
-const ToDoPage = ({ listTodo, deleteTodo }) => {
-  console.log(listTodo);
+import ToDoListItem from '../../components/ToDoListItem/ToDoListItem';
 
+const ToDoPage = ({
+  listTodo,
+  deleteTodo,
+  addIdEditItem,
+  arrayIdsEditItem,
+}) => {
+  // console.log(listTodo)
   return (
     <main>
-      <h1>Todo Page</h1>
+      <h2>Todo Page</h2>
       <ul>
         {listTodo.map(item => (
-          <li key={item.id}>
-            <h3>{item.text}</h3>
-            <button type="button" onClick={() => deleteTodo(item.id)}>
-              Delete
-            </button>
-          </li>
+          <ToDoListItem
+            key={item.id}
+            item={item}
+            deleteTodo={deleteTodo}
+            addIdEditItem={() => addIdEditItem(item.id)}
+            isShowForm={arrayIdsEditItem.some(id => id === item.id)}
+          />
         ))}
       </ul>
     </main>
@@ -23,11 +30,18 @@ const ToDoPage = ({ listTodo, deleteTodo }) => {
 };
 
 const mapStateToProps = state => {
-  return { listTodo: state.todoRoot.todo };
+  return {
+    listTodo: state.todoRoot.todo,
+    arrayIdsEditItem: state.todoRoot.idItemEdit,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return { deleteTodo: id => dispatch(ToDoAction.deleteItem(id)) };
+  return {
+    deleteTodo: id => dispatch(ToDoAction.deleteItem(id)),
+    changeTodo: (id, text) => dispatch(ToDoAction.changeItem(id, text)),
+    addIdEditItem: id => dispatch(ToDoAction.addIdEditItem(id)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoPage);

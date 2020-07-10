@@ -1,20 +1,36 @@
-import {combineReducers} from "redux"
-import ToDoTypes   from "./ToDoTypes"
+import { combineReducers } from 'redux';
+import ToDoTypes from './ToDoTypes';
 
+const ToDoReducer = (state = [], action) => {
+  switch (action.type) {
+    case ToDoTypes.ADD_ITEM:
+      return [...state, action.payload.todo];
 
+    case ToDoTypes.DELETE_ITEM:
+      return state.filter(item => item.id !== action.payload.id);
 
-const ToDoReducer = (state=[], action)=>{
+    case ToDoTypes.CHANGE_ITEM:
+      return state.map(item =>
+        item.id === action.payload.id 
+        ? { ...item, text: action.payload.text } 
+        : item,
+      );
+
+    default:
+      return state;
+  }
+};
+
+const IdItemEditReducer = (state = [], action) => {
     switch (action.type) {
-        case ToDoTypes.ADD_ITEM:
-            return [...state, action.payload.todo];
-
-        case ToDoTypes.DELETE_ITEM:
-                return state.filter(item => item.id !== action.payload.id);
-
-        default:
-            return state;
+      case ToDoTypes.ADD_ID_EDIT_ITEM:
+        return [...state, action.payload.id];
+  
+      default:
+        return state;
     }
-}
+  };
 export default combineReducers({
-    todo: ToDoReducer,
+  todo: ToDoReducer,
+  idItemEdit: IdItemEditReducer,
 });
