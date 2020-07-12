@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import ToDoAction from '../../redux/ToDo/ToDoAction';
+// import ToDoAction from '../../redux/ToDo/ToDoAction';
 
 import ToDoListItem from '../../components/ToDoListItem/ToDoListItem';
 
@@ -22,11 +22,12 @@ const ToDoPage = ({
           <ToDoListItem
             key={item.id}
             item={item}
-            deleteTodo={deleteTodo}
-            addIdEditItem={() => addIdEditItem(item.id)}
-            isShowForm={arrayIdsEditItem.some(id => id === item.id)}
-            deleteIdEditItem={()=>deleteIdEditItem(item.id)}
-            changeTodo={(text)=>changeTodo(item.id, text)}
+            id={item.id}
+            // deleteTodo={deleteTodo}
+            // addIdEditItem={() => addIdEditItem(item.id)}
+            // isShowForm={arrayIdsEditItem.some(id => id === item.id)}
+            // deleteIdEditItem={()=>deleteIdEditItem(item.id)}
+            // changeTodo={(text)=>changeTodo(item.id, text)}
           />
         ))}
       </ul>
@@ -37,16 +38,16 @@ const ToDoPage = ({
 const mapStateToProps = state => {
   return {
     listTodo: state.todoRoot.todo,
-    arrayIdsEditItem: state.todoRoot.idItemEdit,
+    // arrayIdsEditItem: state.todoRoot.idItemEdit,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteTodo: id => dispatch(ToDoAction.deleteItem(id)),
-    changeTodo: (id, text) => dispatch(ToDoAction.changeItem(id, text)),
-    addIdEditItem: id => dispatch(ToDoAction.addIdEditItem(id)),
-    deleteIdEditItem: id => dispatch(ToDoAction.deleteIdEditItem(id)),
+    // deleteTodo: id => dispatch(ToDoAction.deleteItem(id)),
+    // changeTodo: (id, text) => dispatch(ToDoAction.changeItem(id, text)),
+    // addIdEditItem: id => dispatch(ToDoAction.addIdEditItem(id)),
+    // deleteIdEditItem: id => dispatch(ToDoAction.deleteIdEditItem(id)),
   };
 };
 

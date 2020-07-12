@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ToDoAction from "../../redux/ToDo/ToDoAction"
+import {connect} from "react-redux"
 
 class ToDoListItem extends Component {
   state = {
@@ -7,7 +9,7 @@ class ToDoListItem extends Component {
 
   handleChange = ({ target }) => this.setState({ value: target.value });
 
-  handleSubmot = e => {
+  handleSubmot = (e) => {
     e.preventDefault();
     const {deleteIdEditItem, changeTodo} = this.props;
 
@@ -21,9 +23,9 @@ class ToDoListItem extends Component {
       isShowForm,
       deleteTodo,
       addIdEditItem,
-    //   deleteIdEditItem,
     } = this.props;
     const { value } = this.state;
+
     return (
       <li>
         <h3>{item.text}</h3>
@@ -34,7 +36,7 @@ class ToDoListItem extends Component {
           </button>
         )}
 
-        <button type="button" onClick={() => deleteTodo(item.id)}>
+        <button type="button" onClick={ deleteTodo}>
           Delete
         </button>
 
@@ -51,4 +53,23 @@ class ToDoListItem extends Component {
   }
 }
 
-export default ToDoListItem;
+// export default ToDoListItem;
+
+const mapStateToProps = (state, {id}) => {
+    const arrayIdsEditItem = state.todoRoot.idItemEdit;
+    const isShowForm = arrayIdsEditItem.some(idEdit=> idEdit === id)
+    return {
+        isShowForm
+    }
+  };
+  
+  const mapDispatchToProps = (dispatch, {id}) => {
+    return {
+      deleteTodo: () => dispatch(ToDoAction.deleteItem(id)),
+      changeTodo: ( text) => dispatch(ToDoAction.changeItem(id, text)),
+      addIdEditItem: () => dispatch(ToDoAction.addIdEditItem(id)),
+      deleteIdEditItem: () => dispatch(ToDoAction.deleteIdEditItem(id)),
+    };
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(ToDoListItem);
